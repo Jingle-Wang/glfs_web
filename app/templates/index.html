@@ -129,7 +129,7 @@
                     </div>
                     <div class="box-body no-padding">
                         <ul class="nav nav-stacked" data-toggle="tabs" id="volumeTabs">
-
+                            <li role="presentation"><a href="#c" data-toggle="tab">volumeI</a></li>
                         </ul>
                     </div>
                     <!-- /.box-body -->
@@ -138,71 +138,131 @@
             <div class="col-md-8">
                 <h3 id="noVolume">没有存储卷,请点击添加.</h3>
                 <div class="tab-content" id="volumeContent">
+                    <div id="c" class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <!-- 饼状图 -->
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-bar-chart-o"></i>
 
+                                        <h3 class="box-title">存储卷容量</h3>
+
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div id="volumeUsage" style="height: 150px; width:100%"></div>
+                                    </div>
+                                    <!-- /.box-body-->
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <!-- 读写速度 -->
+                                <!-- interactive chart -->
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <i class="fa fa-bar-chart-o"></i>
+
+                                        <h3 class="box-title">IO读写速度</h3>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body" id="rwBox">
+                                        <div id="rwSpeed" style="height: 150px; width: 100%"></div>
+                                    </div>
+                                    <!-- /.box-body-->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                        </div>
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="box box-primary">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">存储卷操作</h3>
+                                            </div>
+                                            <!-- /.box-header -->
+                                            <div class="box-body table-responsive no-padding" style="color: black;height: 158px">
+                                                <div class="row" style="text-align: center;margin-top: 39px;width: 100%">
+                                                    <a class="btn btn-app">
+                                                        <i class="fa fa-play"></i> 启动
+                                                    </a>
+                                                    <a class="btn btn-app">
+                                                        <i class="fa fa-repeat"></i> 重启
+                                                    </a>
+                                                    <a class="btn btn-app">
+                                                        <i class="fa fa-pause"></i> 停止
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                            <!-- /.box-body -->
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-7">
+                                        <table class="table table-hover table-no-bordered" data-toggle="table" data-unique-id="client">
+                                            <thead>
+                                            <tr>
+                                                <th data-align="center" data-field="ck"></th>
+                                                <th data-align="center" data-field="client">客户端</th>
+                                                <th data-align="center" data-field="address">网址</th>
+                                                <th data-align="center" data-field="username">用户名</th>
+                                                <th data-align="center" data-field="password">密码</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td><input id="nfsClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
+                                                <td>NFS</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                                <td>--</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input id="sambaCient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
+                                                <td>Samba</td>
+                                                <td>localhost/share</td>
+                                                <td>username</td>
+                                                <td>passwoird</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input id="iscsiClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
+                                                <td>iSCSI</td>
+                                                <td>localhost/share</td>
+                                                <td>username</td>
+                                                <td>passwoird</td>
+                                            </tr>
+                                            <tr>
+                                                <td><input id="SwiftClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
+                                                <td>Swift</td>
+                                                <td>localhost/share</td>
+                                                <td>username</td>
+                                                <td>passwoird</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+
+                    </div>
                 </div>
             </div>
             <div class="col-md-2"></div>
         </div>
         <div class="tab-pane" id="sysM" style="color: black">
 
-
-            <!-- No tables
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="box">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">ALL Servers Info</h3>
-                        </div>
-                        <!-- /.box-header -->
-            <!--
-                        <div class="box-body table-responsive no-padding" style="color: black;">
-                            <table class ="table-hover active" data-toggle="table" id = "serverList" data-unique-id="serverId">
-                                <thead>
-                                <tr>
-                                    <th data-align="center" data-field="serverCloumn1">First</th>
-                                    <th data-align="center" data-field="serverCloumn2">Second</th>
-                                    <th data-align="center" data-field="serverCloumn3">Third</th>
-                                    <th data-align="center" data-field="serverCloumn4">Fourth</th>
-                                </tr>
-                                </thead>
-                            </table>
-                        </div>
-                        <!-- /.box-body -->
-            <!--
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-           -->
-            <div class="row">
-                <div class="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class="box" id = "serversList">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">ALL servers Info</h3>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-
+            <h1>系统管理</h1>
         </div>
         <div class="tab-pane" id="monitorM" style="color: black">
             <h1>监控管理</h1>
-            <div class = "row">
-                <div class ="col-md-2"></div>
-                <div class="col-md-8">
-                    <div class = "box" id = "rwSpeed" style="min-width:400px;height:400px"> </div>
-                </div>
-            </div>
-            <!--<div id="rwSpeed" style="height: 150px; width: 100%"></div> <-->
         </div>
         <div class="tab-pane" id="help" style="color: black">
             <h1>帮助</h1>
@@ -290,16 +350,15 @@
 <script src="{{url_for('.static',filename='plugins/flot/jquery.flot.pie.min.js')}}"></script>
 <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
 <script src="{{url_for('.static',filename='plugins/flot/jquery.flot.categories.min.js')}}"></script>
-<!--
-<script type="text/javascript" src="http://cdn.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
--->
-<script type="text/javascript" src="{{url_for('.static',filename='plugins/chartjs/highcharts.js')}}"></script>
-
 <script type=text/javascript>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
 <script>
     var table = $('#volumeList');
+    var vCapacity;
+    var getCData = function(data){
+        vCapacity = data.from;
+    };
     var volumeData = [
         {
             volumeName : "test1",
@@ -308,7 +367,17 @@
             NFS : true,
             Samba : true,
             iSCSI : true,
-            Swift : true
+            Swift : true,
+            free : 3,
+            use : 17,
+            read : [2,2,2,2,3,3,3,3,2,2],
+            write : [3,3,3,3,3,4,3,3,3,3],
+            NFSInfo : "nfs info",
+            sambaInfo : "samba info",
+            iSCSIInfo : "iSCSI info",
+            SwiftInfo : "Swift info",
+            bricks : [{name: "bricks1", online : true},{name : "bricks2", online : false}],
+            snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         },
         {
             volumeName : "test2",
@@ -317,7 +386,17 @@
             NFS : true,
             Samba : true,
             iSCSI : true,
-            Swift : true
+            Swift : true,
+            free : 3,
+            use : 7,
+            read : [2,2,2,2,3,3,3,3,2,2],
+            write : [3,3,3,3,3,4,3,3,3,3],
+            NFSInfo : "nfs info",
+            sambaInfo : "samba info",
+            iSCSIInfo : "iSCSI info",
+            SwiftInfo : "Swift info",
+            bricks : [{name: "bricks1", online : true},{name : "bricks2", online : false}],
+            snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         },
         {
             volumeName : "test3",
@@ -326,7 +405,17 @@
             NFS : false,
             Samba : false,
             iSCSI : false,
-            Swift : false
+            Swift : false,
+            free : 5,
+            use : 5,
+            read : [2,2,2,2,3,3,3,3,2,2],
+            write : [3,3,3,3,3,4,3,3,3,3],
+            NFSInfo : "nfs info",
+            sambaInfo : "samba info",
+            iSCSIInfo : "iSCSI info",
+            SwiftInfo : "Swift info",
+            bricks : [{name: "bricks1", online : true},{name : "bricks2", online : false}],
+            snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         }
     ];
     var globalVolumeData = {};
@@ -336,16 +425,54 @@
         globalVolumeData[tmpName] = volumeData[i]["status"];
     }
     jQuery(document).ready(function ($) {
+        //初始化客户端,后期移到动态创建里面
+        var nfsClient = $('#nfsClient');
+        nfsClient.change(function() {
+            if (nfsClient.prop("checked")){
+                alert("checked");
+            } else {
+                alert("unchecked");//-------------------------------------------------to do
+            }
+        });
+        //创建volume--------------------------------
         $("#volumeCForm").submit(function( event ) {
             //创建volume
             event.preventDefault();
+            var volume_name = $('#cVolumeName').val();
+            var volume_capacity = vCapacity;
+            var Redundancy = $('#Redundancy').val();
+
+            $.getJSON($SCRIPT_ROOT + '/volume/create', {
+                volumeName : volume_name,
+                volumeCapacity : volume_capacity,
+                redundancy : Redundancy
+            }, function (data) {
+                var result = data["result"];
+                if (result == "success"){
+                    //判断是否为唯一一个volume
+                    if (Object.keys(globalVolumeData).length == 0){
+                        $("#noVolume").css('display','none');
+                    }
+                    globalVolumeData[volume_name] = "stop";
+                    //添加新的tab和content
+                    var newVolumeData = data["msg"]
+
+                }
+            });
+
             $("#addVolumeM").modal("hide");
         });
         $("#vCapacity").ionRangeSlider({
             min: 1,
             max: 20,
             from: 3,
-            postfix: "TB"
+            postfix: "TB",
+            onStart : function(data){
+                getCData(data);
+            },
+            onChange : getCData,
+            onFinish : getCData
+
         });
         $("#tabs").tab();
         $('.nav-stacked').click(function (e) {
@@ -357,6 +484,15 @@
                 $('#removeVolume').prop("disabled", true);
             } else {
                 $('#removeVolume').prop("disabled", false);
+            }
+        });
+        $('.nav-tabs').click(function (e) {
+            var target = $(e.target).attr("href");
+            //判断状态确定删除键是否可以使用
+            //var volumeID = $('.nav-stacked .active').text();
+            var tabPage = target.replace("#","");
+            if (tabPage == "sysM"){
+                setTimeout(function(){$("#rwSpeed").highcharts().reflow();}, 10);
             }
         });
         $("#removeConfirm").click(function(){
@@ -395,136 +531,6 @@
             $("#removeConfirmM").modal("hide");
         });
     });
-
-    var serverslist= $('#serversList');
-    var servers = [
-        {
-            serverId: "tfs00",
-            serverStatus: "running",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId: "tfs01",
-            serverStatus: "stop",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId: "tfs02",
-            serverStatus:"running",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId: "tfs03",
-            serverStatus:"running",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId: "tfs04",
-            serverStatus:"running",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId: "tfs05",
-            serverStatus:"running",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId: "tfs06",
-            serverStatus:"running",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId:"tfs07",
-            serverStatus: "stop",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        },
-        {
-            serverId:"tfs08",
-            serverStatus:"stop",
-            disks: [
-                {
-                    diskId:"disk1",
-                    diskStatus:"health"
-                },
-                {
-                    diskId:"disk2",
-                    diskStatus:"unhealth"
-                }
-            ]
-        }
-    ];
 
 
     $(function () {
@@ -590,6 +596,27 @@
                 show: false
             }
         });
+        /*------test------*/
+        $.plot("#volumeUsage", donutData, {
+            series: {
+                pie: {
+                    show: true,
+                    radius: 1,
+                    innerRadius: 0.4,
+                    label: {
+                        show: true,
+                        radius: 2 / 3,
+                        formatter: labelFormatter,
+                        threshold: 0.1
+                    }
+
+                }
+            },
+            legend: {
+                show: false
+            }
+        });
+        /*---------------*/
         /*------------------------------------------存储卷管理tab------------------------*/
         var volumeTabs = $('#volumeTabs');
         var volumeContent = $('#volumeContent');
@@ -605,150 +632,109 @@
                 removeButton.prop("disabled", false);
             }
         }
-
-        /*    System Manager table-------------------------*/
-
-
-
-        var count = 0;
-        for (count = 0; count < servers.length; count++){
-
-
-            serverslist.append(serversListFormat(servers[count]["serverId"], count));
-
-        }
-        for (count = 0; count < servers.length; count++){
-
-            for (var i = 0; i < servers[count]["disks"].length; i++){
-                //alert("done");
-                var serverid = '#diskinfo' + servers[count]["serverId"];
-
-                var disklist = $(serverid);
-                //diskContentFormat(servers[count]["disks"][i]["diskId"], i, count)
-                disklist.append(diskContentFormat(servers[count]["disks"][i]["diskId"], i, count));
+        /*--------------------------tabcontent-----------------*/
+        Highcharts.setOptions({
+            global: {
+                useUTC: false
             }
+        });
 
-        }
+        $('#rwSpeed').highcharts({
+            credits: {
+                enabled: false
+            },
+            chart: {
+                type: 'line',
+                animation: false, // don't animate in old IE
+                events: {
+                    load: function (event) {
+                        var series = this.series[0];
+                        var series1 = this.series[1];
+                        setInterval(function () {
+                            var x = (new Date()).getTime(), // current time
+                                    y = Math.random();//y get from background
+                            series.addPoint([x, y], true, true);
+                            series1.addPoint([x, Math.random()], true, true);
+                        }, 1000);
+                    }
+                }
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150,
+                minPadding: 0,
+                maxPadding: 0
+            },
+            yAxis: {
+                title: {
+                    text: 'MB/s'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                formatter: function () {
+                    return '<b>' + this.series.name + '</b><br/>' +
+                            Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                            Highcharts.numberFormat(this.y, 2);
+                },
+                crosshairs: true
+            },
+            plotOptions: {
+                series: {
+                    dataLabels: {
+                        allowOverlap: true
+                    }
+                }
+            },
+            title : {
+                text : ""
+            },
+            legend: {
+                enabled: true
+            },
+            exporting: {
+                enabled: false
+            },
+            series: [{
+                name: '读',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                            time = (new Date()).getTime(),
+                            i;
 
-/*        var count = 0;
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                }())
+            }, {
+                name: '写',
+                data: (function () {
+                    // generate an array of random data
+                    var data = [],
+                            time = (new Date()).getTime(),
+                            i;
 
-        for (count = 0; count < servers.length; count =+ 4){
-            var tmp = {};
-            if (count + 4 > servers.length){
-                break;
-            }
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon bg-white'> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-               // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 1]["serverStatus"] == "running"){
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 2]["serverStatus"] == "running"){
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active '> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 3]["serverStatus"] == "running"){
-                tmp["serverCloumn4"] = servers[count + 3]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn4"] = servers[count + 3]["serverId"] + "<span style='color:grey' class='info-box-icon  bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            serverData.push(tmp);
-
-        }
-        if (count + 3 == servers.length ){
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-                // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 1]["serverStatus"] == "running"){
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 2]["serverStatus"] == "running"){
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:grey' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            tmp ["serverCloumn4"]  = "<span> </span>"
-            serverData.push(tmp);
-        }
-        if (count + 2 ==  servers.length){
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-                // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 1]["serverStatus"] == "running"){
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            tmp ["serverCloumn3"]  = "<span> </span>"
-            tmp ["serverCloumn4"]  = "<span> </span>"
-            serverData.push(tmp);
-
-        }
-        if (count + 1 == servers.length){
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-                // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            tmp ["serverCloumn2"]  = "<span> </span>"
-            tmp ["serverCloumn3"]  = "<span> </span>"
-            tmp ["serverCloumn4"]  = "<span> </span>"
-            serverData.push(tmp);
-        }
-        serverTable.bootstrapTable('append', serverData);
-*/
-
+                    for (i = -19; i <= 0; i += 1) {
+                        data.push({
+                            x: time + i * 1000,
+                            y: Math.random()
+                        });
+                    }
+                    return data;
+                }()),
+                color : '#6FDB4B'
+            }]
+        });
     });
-
-
-    function serversListFormat(serverId, i) {
-        if (servers[i]["serverStatus"] == "running"){
-            return '<div class="info-box"><span style = "color:green" class="info-box-icon "><i class="fa fa-fw fa-tv"></i></span>' +
-                        '<div class="info-box-content" style="color: black"> ' +
-                            ' <span class="info-box-text">'+ serverId + '</span> ' +
-                            '<span class="info-box-number" id="diskinfo'+ serverId + '">' +
-                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh"> Restart Now </i></button>'+
-                            '</span>' +
-                        '</div>'
-                    '</div>';
-
-        }else{
-            return '<div class="info-box"><span style = "color:darkslategray" class="info-box-icon"><i class="fa fa-fw fa-tv"></i></span>  ' +
-                        '<div class="info-box-content" style="color: black"> ' +
-                            '<span class="info-box-text">'+ serverId + '</span>' +
-                            '<span class="info-box-number" id="diskinfo'+ serverId +'">' +
-                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">Restart Now</i></button>'+
-                            '</span>' +
-                        '</div>'
-                    '</div>';
-
-        }
-    }
-    function diskContentFormat(diskId , i, count){
-        if (servers[count]["disks"][i]["diskStatus"] == "health") {
-
-            return '<i style="color:green" class="fa fa-fw fa-database"></i>';
-
-        }else{
-            return '<i style="color:darkred" class="fa fa-fw fa-database"></i>';
-        }
-    }
-
     function labelFormatter(label, series) {
         return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
                 + label
@@ -757,7 +743,7 @@
     }
     function volumeTabFormat(volumeName, i){
         if (i == 0){
-            return '<li role="presentation" id ="tabList' + volumeName + '" class ="active"><a href="#tabContent' + volumeName + '" data-toggle="tab">' + volumeName  + '</a></li>';
+            return '<li role="presentation" id ="tabList' + volumeName + '" class ="active"><a href="#tabContent' + volumeName + '" data-toggle="tab">' + volumeName + '</a></li>';
         }else {
             return '<li role="presentation" id ="tabList' + volumeName + '"><a href="#tabContent' + volumeName + '" data-toggle="tab">' + volumeName + '</a></li>';
         }
@@ -765,118 +751,17 @@
     }
     function volumeContentFormat(volumeName, i){
         if (i == 0){
-            return '<div id="tabContent' + volumeName + '" class="tab-pane active"> <h1>' + volumeName +  '</h1> </div>';
+            return '<div id="tabContent' + volumeName + '" class="tab-pane active"> <h1>' + volumeName + '</h1> </div>';
         } else {
             return '<div id="tabContent' + volumeName + '" class="tab-pane"> <h1>' + volumeName + '</h1> </div>';
         }
-
+    }
+    function appendNewVolume(newVolumeData, i){
+        var volumeTabs = $('#volumeTabs');
+        var volumeContent = $('#volumeContent');
+        var removeButton = $('#removeVolume');
+        volumeTabs.append(volumeTabFormat(newVolumeData["volumeName"], i));
     }
 
-
-</script>
-
-<script>
-
-    Highcharts.setOptions({
-        global: {
-            useUTC: false
-        }
-    });
-
-    $('#rwSpeed').highcharts({
-        credits: {
-            enabled: false
-        },
-        chart: {
-            type: 'line',
-            animation: false, // don't animate in old IE
-            events: {
-                load: function (event) {
-                    var series = this.series[0];
-                    var series1 = this.series[1];
-                    setInterval(function () {
-                        var x = (new Date()).getTime(), // current time
-                                y = Math.random();//y get from background
-                        series.addPoint([x, y], true, true);
-                        series1.addPoint([x, Math.random()], true, true);
-                    }, 1000);
-                }
-            }
-        },
-        xAxis: {
-            type: 'datetime',
-            tickPixelInterval: 150,
-            minPadding: 0,
-            maxPadding: 0
-        },
-        yAxis: {
-            title: {
-                text: 'MB/s'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            formatter: function () {
-                return '<b>' + this.series.name + '</b><br/>' +
-                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-                        Highcharts.numberFormat(this.y, 2);
-            },
-            crosshairs: true
-        },
-        plotOptions: {
-            series: {
-                dataLabels: {
-                    allowOverlap: true
-                }
-            }
-        },
-        title : {
-            text : ""
-        },
-        legend: {
-            enabled: true
-        },
-        exporting: {
-            enabled: false
-        },
-        series: [{
-            name: '读',
-            data: (function () {
-                // generate an array of random data
-                var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-
-                for (i = -19; i <= 0; i += 1) {
-                    data.push({
-                        x: time + i * 1000,
-                        y: Math.random()
-                    });
-                }
-                return data;
-            }())
-        }, {
-            name: '写',
-            data: (function () {
-                // generate an array of random data
-                var data = [],
-                        time = (new Date()).getTime(),
-                        i;
-
-                for (i = -19; i <= 0; i += 1) {
-                    data.push({
-                        x: time + i * 1000,
-                        y: Math.random()
-                    });
-                }
-                return data;
-            }()),
-            color : '#6FDB4B'
-        }]
-    });
 </script>
 {% endblock %}
