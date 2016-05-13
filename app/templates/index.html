@@ -259,10 +259,28 @@
         </div>
         <div class="tab-pane" id="sysM" style="color: black">
 
-            <h1>系统管理</h1>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="box" id = "serversList">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">集群机器信息</h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
         </div>
         <div class="tab-pane" id="monitorM" style="color: black">
-            <h1>监控管理</h1>
+            <div class = "row">
+                <div class ="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class = "box" id = "CPU" style="min-width:400px;height:400px"> </div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane" id="help" style="color: black">
             <h1>帮助</h1>
@@ -350,6 +368,8 @@
 <script src="{{url_for('.static',filename='plugins/flot/jquery.flot.pie.min.js')}}"></script>
 <!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
 <script src="{{url_for('.static',filename='plugins/flot/jquery.flot.categories.min.js')}}"></script>
+
+<script type="text/javascript" src="{{url_for('.static',filename='plugins/chartjs/highcharts.js')}}"></script>
 <script type=text/javascript>
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 </script>
@@ -531,6 +551,136 @@
             $("#removeConfirmM").modal("hide");
         });
     });
+
+        var serverslist= $('#serversList');
+    var servers = [
+        {
+            serverId: "tfs00",
+            serverStatus: "running",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId: "tfs01",
+            serverStatus: "stop",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId: "tfs02",
+            serverStatus:"running",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId: "tfs03",
+            serverStatus:"running",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId: "tfs04",
+            serverStatus:"running",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId: "tfs05",
+            serverStatus:"running",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId: "tfs06",
+            serverStatus:"running",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId:"tfs07",
+            serverStatus: "stop",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        },
+        {
+            serverId:"tfs08",
+            serverStatus:"stop",
+            disks: [
+                {
+                    diskId:"disk1",
+                    diskStatus:"health"
+                },
+                {
+                    diskId:"disk2",
+                    diskStatus:"unhealth"
+                }
+            ]
+        }
+    ];
 
 
     $(function () {
@@ -734,7 +884,129 @@
                 color : '#6FDB4B'
             }]
         });
+
+               /*    System Manager table-------------------------*/
+        var count = 0;
+        for (count = 0; count < servers.length; count++){
+            serverslist.append(serversListFormat(servers[count]["serverId"], count));
+        }
+        for (count = 0; count < servers.length; count++){
+            for (var i = 0; i < servers[count]["disks"].length; i++){
+                //alert("done");
+                var serverid = '#diskinfo' + servers[count]["serverId"];
+                var disklist = $(serverid);
+                //diskContentFormat(servers[count]["disks"][i]["diskId"], i, count)
+                disklist.append(diskContentFormat(servers[count]["disks"][i]["diskId"], i, count));
+            }
+        }
+/*        var count = 0;
+        for (count = 0; count < servers.length; count =+ 4){
+            var tmp = {};
+            if (count + 4 > servers.length){
+                break;
+            }
+            if (servers[count]["serverStatus"] == "running"){
+                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon bg-white'> <i class = 'fa fa-fw fa-tv'> </i></span> ";
+               // "<p> fadfafasfadsfa </p>";
+            }else {
+                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            if (servers[count + 1]["serverStatus"] == "running"){
+                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }else {
+                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            if (servers[count + 2]["serverStatus"] == "running"){
+                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }else {
+                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active '> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            if (servers[count + 3]["serverStatus"] == "running"){
+                tmp["serverCloumn4"] = servers[count + 3]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }else {
+                tmp["serverCloumn4"] = servers[count + 3]["serverId"] + "<span style='color:grey' class='info-box-icon  bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            serverData.push(tmp);
+        }
+        if (count + 3 == servers.length ){
+            if (servers[count]["serverStatus"] == "running"){
+                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span> ";
+                // "<p> fadfafasfadsfa </p>";
+            }else {
+                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            if (servers[count + 1]["serverStatus"] == "running"){
+                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }else {
+                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            if (servers[count + 2]["serverStatus"] == "running"){
+                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }else {
+                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:grey' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            tmp ["serverCloumn4"]  = "<span> </span>"
+            serverData.push(tmp);
+        }
+        if (count + 2 ==  servers.length){
+            if (servers[count]["serverStatus"] == "running"){
+                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span> ";
+                // "<p> fadfafasfadsfa </p>";
+            }else {
+                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            if (servers[count + 1]["serverStatus"] == "running"){
+                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }else {
+                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            tmp ["serverCloumn3"]  = "<span> </span>"
+            tmp ["serverCloumn4"]  = "<span> </span>"
+            serverData.push(tmp);
+        }
+        if (count + 1 == servers.length){
+            if (servers[count]["serverStatus"] == "running"){
+                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span> ";
+                // "<p> fadfafasfadsfa </p>";
+            }else {
+                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
+            }
+            tmp ["serverCloumn2"]  = "<span> </span>"
+            tmp ["serverCloumn3"]  = "<span> </span>"
+            tmp ["serverCloumn4"]  = "<span> </span>"
+            serverData.push(tmp);
+        }
+        serverTable.bootstrapTable('append', serverData);
+*/
     });
+    function serversListFormat(serverId, i) {
+        if (servers[i]["serverStatus"] == "running"){
+            return '<div class="info-box"><span style = "color:green" class="info-box-icon "><i class="fa fa-fw fa-tv"></i></span>' +
+                        '<div class="info-box-content" style="color: black"> ' +
+                            ' <span class="info-box-text">'+ serverId + '</span> ' +
+                            '<span class="info-box-number" id="diskinfo'+ serverId + '">' +
+                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">重启</i></button>'+
+                            '</span>' +
+                        '</div>'
+                    '</div>';
+        }else{
+            return '<div class="info-box"><span style = "color:darkslategray" class="info-box-icon"><i class="fa fa-fw fa-tv"></i></span>  ' +
+                        '<div class="info-box-content" style="color: black"> ' +
+                            '<span class="info-box-text">'+ serverId + '</span>' +
+                            '<span class="info-box-number" id="diskinfo'+ serverId +'">' +
+                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">重启</i></button>'+
+                            '</span>' +
+                        '</div>'
+                    '</div>';
+        }
+    }
+    function diskContentFormat(diskId , i, count){
+        if (servers[count]["disks"][i]["diskStatus"] == "health") {
+            return '<i style="color:green" class="fa fa-fw fa-database"></i>';
+        }else{
+            return '<i style="color:darkred" class="fa fa-fw fa-database"></i>';
+        }
+    }
     function labelFormatter(label, series) {
         return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
                 + label
@@ -764,4 +1036,106 @@
     }
 
 </script>
+<script>
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+    $('#CPU').highcharts({
+        credits: {
+            enabled: false
+        },
+        chart: {
+            type: 'line',
+            animation: false, // don't animate in old IE
+            events: {
+                load: function (event) {
+                    var series = this.series[0];
+                    var series1 = this.series[1];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(), // current time
+                                y = Math.random();//y get from background
+                        series.addPoint([x, y], true, true);
+                        series1.addPoint([x, Math.random()], true, true);
+                    }, 1000);
+                }
+            }
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 150,
+            minPadding: 0,
+            maxPadding: 0
+        },
+        yAxis: {
+            title: {
+                text: 'MB/s'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                        Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                        Highcharts.numberFormat(this.y, 2);
+            },
+            crosshairs: true
+        },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    allowOverlap: true
+                }
+            }
+        },
+        title : {
+            text : ""
+        },
+        legend: {
+            enabled: true
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: '读',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+                for (i = -19; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: Math.random()
+                    });
+                }
+                return data;
+            }())
+        }, {
+            name: '写',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                        time = (new Date()).getTime(),
+                        i;
+                for (i = -19; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: Math.random()
+                    });
+                }
+                return data;
+            }()),
+            color : '#6FDB4B'
+        }]
+    });
+
+</script>
+
 {% endblock %}
