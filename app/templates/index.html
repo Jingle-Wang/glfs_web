@@ -278,7 +278,10 @@
             <div class = "row">
                 <div class ="col-md-2"></div>
                 <div class="col-md-8">
-                    <div class = "box" id = "CPU" style="min-width:400px;height:400px"> </div>
+			<div class="box" id="ServersMoni">
+			    
+			</div>
+
                 </div>
             </div>
         </div>
@@ -899,91 +902,176 @@
                 disklist.append(diskContentFormat(servers[count]["disks"][i]["diskId"], i, count));
             }
         }
-/*        var count = 0;
-        for (count = 0; count < servers.length; count =+ 4){
-            var tmp = {};
-            if (count + 4 > servers.length){
-                break;
-            }
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon bg-white'> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-               // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 1]["serverStatus"] == "running"){
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 2]["serverStatus"] == "running"){
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active '> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 3]["serverStatus"] == "running"){
-                tmp["serverCloumn4"] = servers[count + 3]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn4"] = servers[count + 3]["serverId"] + "<span style='color:grey' class='info-box-icon  bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            serverData.push(tmp);
-        }
-        if (count + 3 == servers.length ){
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-                // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 1]["serverStatus"] == "running"){
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 2]["serverStatus"] == "running"){
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn3"] = servers[count + 2]["serverId"] + "<span style='color:grey' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            tmp ["serverCloumn4"]  = "<span> </span>"
-            serverData.push(tmp);
-        }
-        if (count + 2 ==  servers.length){
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-                // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            if (servers[count + 1]["serverStatus"] == "running"){
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:green' class='info-box-icon'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }else {
-                tmp["serverCloumn2"] = servers[count + 1]["serverId"] + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            tmp ["serverCloumn3"]  = "<span> </span>"
-            tmp ["serverCloumn4"]  = "<span> </span>"
-            serverData.push(tmp);
-        }
-        if (count + 1 == servers.length){
-            if (servers[count]["serverStatus"] == "running"){
-                tmp["serverCloumn1"] = servers[count]["serverId"] + "<span style='color:green' class='info-box-icon '> <i class = 'fa fa-fw fa-tv'> </i></span> ";
-                // "<p> fadfafasfadsfa </p>";
-            }else {
-                tmp["serverCloumn1"] = servers[count]["serverId"]  + "<span style='color:grey' class='info-box-icon bg-gray-active'> <i class = 'fa fa-fw fa-tv'> </i></span>";
-            }
-            tmp ["serverCloumn2"]  = "<span> </span>"
-            tmp ["serverCloumn3"]  = "<span> </span>"
-            tmp ["serverCloumn4"]  = "<span> </span>"
-            serverData.push(tmp);
-        }
-        serverTable.bootstrapTable('append', serverData);
-*/
+	
+        /*　System Moniter ---------------------------------*/
+	var SystemMoni = $('#ServersMoni');
+	for (count = 0; count < servers.length; count++){
+		SystemMoni.append(monitorinfoFormat(servers[count]["serverId"], count));
+		Highcharts.setOptions({
+		    global: {
+		        useUTC: false
+		    }
+		});
+
+		$('#CPU' + servers[count]["serverId"]).highcharts({
+		    credits: {
+		        enabled: false
+		    },
+		    chart: {
+		        type: 'line',
+		        animation: false, // don't animate in old IE
+		        events: {
+		            load: function (event) {
+		                var series = this.series[0];
+		                var series1 = this.series[1];
+		                setInterval(function () {
+		                    var x = (new Date()).getTime(), // current time
+		                            y = Math.random();//y get from background
+		                    series.addPoint([x, y], true, true);
+		                    series1.addPoint([x, Math.random()], true, true);
+		                }, 1000);
+		            }
+		        }
+		    },
+		    xAxis: {
+		        type: 'datetime',
+		        tickPixelInterval: 150,
+		        minPadding: 0,
+		        maxPadding: 0
+		    },
+		    yAxis: {
+		        title: {
+		            text: 'MB/s'
+		        },
+		        plotLines: [{
+		            value: 0,
+		            width: 1,
+		            color: '#808080'
+		        }]
+		    },
+		    tooltip: {
+		        formatter: function () {
+		            return '<b>' + this.series.name + '</b><br/>' +
+		                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+		                    Highcharts.numberFormat(this.y, 2);
+		        },
+		        crosshairs: true
+		    },
+		    plotOptions: {
+		        series: {
+		            dataLabels: {
+		                allowOverlap: true
+		            }
+		        }
+		    },
+		    title : {
+		        text : ""
+		    },
+		    legend: {
+		        enabled: true
+		    },
+		    exporting: {
+		        enabled: false
+		    },
+		    series: [{
+		        name: '读',
+		        data: (function () {
+		            // generate an array of random data
+		            var data = [],
+		                    time = (new Date()).getTime(),
+		                    i;
+
+		            for (i = -19; i <= 0; i += 1) {
+		                data.push({
+		                    x: time + i * 1000,
+		                    y: Math.random()
+		                });
+		            }
+		            return data;
+		        }())
+		    }, {
+		        name: '写',
+		        data: (function () {
+		            // generate an array of random data
+		            var data = [],
+		                    time = (new Date()).getTime(),
+		                    i;
+
+		            for (i = -19; i <= 0; i += 1) {
+		                data.push({
+		                    x: time + i * 1000,
+		                    y: Math.random()
+		                });
+		            }
+		            return data;
+		        }()),
+		        color : '#6FDB4B'
+		    }]
+		});		
+
+	}
+		
+		
+
     });
+    function monitorinfoFormat(serverId, i) {
+	return '<div class="col-md-12">'+
+			'<div class= "box-header with-border">' + 
+				'<h3 class ="box-title" id="serverid">机器名称：' + serverId + '</h3>' +
+			'</div>' +
+			'<div class= "col-md-6">' +	
+				'<div class="box box-primary">' +
+		    			'<div class="box-header with-border">' +
+		             			'<i class="fa fa-bar-chart-o"></i>' +
+						'<h3 class="box-title">CPU使用率</h3>' +
+		                	'</div>' +
+		                        '<div class="box-body" id="rwCPU'+ serverId+ '">' +
+		                                '<div id="CPU'+ serverId+ '" style="height: 150px; width: 100%"></div>' +
+		                        '</div>' +
+		                '</div>' +
+			'</div>'+
+
+			'<div class= "col-md-6">' +	
+				'<div class="box box-primary">' +
+		    			'<div class="box-header with-border">' +
+		             			'<i class="fa fa-bar-chart-o"></i>' +
+						'<h3 class="box-title">内存使用率</h3>' +
+		                	'</div>' +
+		                        '<div class="box-body" id="rwMem'+ serverId+ '">' +
+		                                '<div id="Mem' + serverId + '" style="height: 150px; width: 100%"></div>' +
+		                        '</div>' +
+		                '</div>' +
+			'</div>'+
+			'<div class= "col-md-6">' +	
+				'<div class="box box-primary">' +
+		    			'<div class="box-header with-border">' +
+		             			'<i class="fa fa-bar-chart-o"></i>' +
+						'<h3 class="box-title">网络I/O</h3>' +
+		                	'</div>' +
+		                        '<div class="box-body" id="rwNet'+ serverId+ '">' +
+		                                '<div id="Net' + serverId + '" style="height: 150px; width: 100%"></div>' +
+		                        '</div>' +
+		                '</div>' +
+			'</div>'+
+			'<div class= "col-md-6">' +	
+				'<div class="box box-primary">' +
+		    			'<div class="box-header with-border">' +
+		             			'<i class="fa fa-bar-chart-o"></i>' +
+						'<h3 class="box-title">磁盘I/O</h3>' +
+		                	'</div>' +
+		                        '<div class="box-body" id="rwNet'+ serverId+ '">' +
+		                                '<div id="Iodisk' + serverId + '" style="height: 150px; width: 100%"></div>' +
+		                        '</div>' +
+		                '</div>' +
+			'</div>'+
+		
+		'</div>';
+    }
     function serversListFormat(serverId, i) {
         if (servers[i]["serverStatus"] == "running"){
             return '<div class="info-box"><span style = "color:green" class="info-box-icon "><i class="fa fa-fw fa-tv"></i></span>' +
                         '<div class="info-box-content" style="color: black"> ' +
-                            ' <span class="info-box-text">'+ serverId + '</span> ' +
+                            '<span class="info-box-text">'+ serverId + '</span> ' +
                             '<span class="info-box-number" id="diskinfo'+ serverId + '">' +
                                 '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">重启</i></button>'+
                             '</span>' +
@@ -1037,12 +1125,14 @@
 
 </script>
 <script>
+
+
     Highcharts.setOptions({
         global: {
             useUTC: false
         }
     });
-    $('#CPU').highcharts({
+    $('#CPUtfs00').highcharts({
         credits: {
             enabled: false
         },
