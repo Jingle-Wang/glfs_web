@@ -931,6 +931,7 @@
 		                    series1.addPoint([x, Math.random()], true, true);
 		                }, 1000);
 		            }
+
 		        }
 		    },
 		    xAxis: {
@@ -1026,7 +1027,7 @@
 						'<h3 class="box-title">CPU使用率</h3>' +
 		                	'</div>' +
 		                        '<div class="box-body" id="rwCPU'+ serverId+ '">' +
-		                                '<div id="CPU'+ serverId+ '" style="height: 150px; width: 100%"></div>' +
+		                                '<div id="CPU'+ serverId+ '" style="height: 180px; width: 550px"></div>' +
 		                        '</div>' +
 		                '</div>' +
 			'</div>'+
@@ -1038,7 +1039,7 @@
 						'<h3 class="box-title">内存使用率</h3>' +
 		                	'</div>' +
 		                        '<div class="box-body" id="rwMem'+ serverId+ '">' +
-		                                '<div id="Mem' + serverId + '" style="height: 150px; width: 100%"></div>' +
+		                                '<div id="Mem' + serverId + '" style="height: 180px; width: 550px"></div>' +
 		                        '</div>' +
 		                '</div>' +
 			'</div>'+
@@ -1049,7 +1050,7 @@
 						'<h3 class="box-title">网络I/O</h3>' +
 		                	'</div>' +
 		                        '<div class="box-body" id="rwNet'+ serverId+ '">' +
-		                                '<div id="Net' + serverId + '" style="height: 150px; width: 100%"></div>' +
+		                                '<div id="Net' + serverId + '" style="height: 180px; width:550px"></div>' +
 		                        '</div>' +
 		                '</div>' +
 			'</div>'+
@@ -1060,7 +1061,7 @@
 						'<h3 class="box-title">磁盘I/O</h3>' +
 		                	'</div>' +
 		                        '<div class="box-body" id="rwNet'+ serverId+ '">' +
-		                                '<div id="Iodisk' + serverId + '" style="height: 150px; width: 100%"></div>' +
+		                                '<div id="Iodisk' + serverId + '" style="height: 180px; width: 550px"></div>' +
 		                        '</div>' +
 		                '</div>' +
 			'</div>'+
@@ -1072,27 +1073,27 @@
             return '<div class="info-box"><span style = "color:green" class="info-box-icon "><i class="fa fa-fw fa-tv"></i></span>' +
                         '<div class="info-box-content" style="color: black"> ' +
                             '<span class="info-box-text">'+ serverId + '</span> ' +
-                            '<span class="info-box-number" id="diskinfo'+ serverId + '">' +
-                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">重启</i></button>'+
-                            '</span>' +
+                            '<div class="info-box-number" id="diskinfo'+ serverId + '">' +
+                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">立即重启</i></button>'+
+                            '</div>' +
                         '</div>'
                     '</div>';
         }else{
             return '<div class="info-box"><span style = "color:darkslategray" class="info-box-icon"><i class="fa fa-fw fa-tv"></i></span>  ' +
                         '<div class="info-box-content" style="color: black"> ' +
                             '<span class="info-box-text">'+ serverId + '</span>' +
-                            '<span class="info-box-number" id="diskinfo'+ serverId +'">' +
-                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">重启</i></button>'+
-                            '</span>' +
+                            '<div class="info-box-number" id="diskinfo'+ serverId +'">' +
+                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">立即重启</i></button>'+
+                            '</div>' +
                         '</div>'
                     '</div>';
         }
     }
     function diskContentFormat(diskId , i, count){
         if (servers[count]["disks"][i]["diskStatus"] == "health") {
-            return '<i style="color:green" class="fa fa-fw fa-database"></i>';
+            return '<i style="color:green" class="fa fa-fw fa-database" style="height: 20px; with:20px" ></i>';
         }else{
-            return '<i style="color:darkred" class="fa fa-fw fa-database"></i>';
+            return '<i style="color:darkred" class="fa fa-fw fa-database" style="height: 20px; with:20px" ></i>';
         }
     }
     function labelFormatter(label, series) {
@@ -1201,7 +1202,7 @@
                         i;
                 for (i = -19; i <= 0; i += 1) {
                     data.push({
-                        x: time + i * 1000,
+                        x: time + i * 5000,
                         y: Math.random()
                     });
                 }
