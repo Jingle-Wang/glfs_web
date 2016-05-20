@@ -180,78 +180,125 @@
                                 <!-- /.box -->
                             </div>
                         </div>
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="box box-primary">
-                                            <div class="box-header with-border">
-                                                <h3 class="box-title">存储卷操作</h3>
-                                            </div>
-                                            <!-- /.box-header -->
-                                            <div class="box-body table-responsive no-padding" style="color: black;height: 158px">
-                                                <div class="row" style="text-align: center;margin-top: 39px;width: 100%">
-                                                    <a class="btn btn-app">
-                                                        <i class="fa fa-play"></i> 启动
-                                                    </a>
-                                                    <a class="btn btn-app">
-                                                        <i class="fa fa-repeat"></i> 重启
-                                                    </a>
-                                                    <a class="btn btn-app">
-                                                        <i class="fa fa-pause"></i> 停止
-                                                    </a>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="box box-primary">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">存储卷操作</h3>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body table-responsive no-padding" style="color: black;height: 158px">
+                                        <div class="row" style="text-align: center;margin-top: 39px;width: 100%">
+                                            <button class="btn btn-app" disabled>
+                                                <i class="fa fa-play"></i> 启动
+                                            </button>
+                                            <button class="btn btn-app">
+                                                <i class="fa fa-repeat"></i> 重启
+                                            </button>
+                                            <button class="btn btn-app">
+                                                <i class="fa fa-pause"></i> 停止
+                                            </button>
 
-                                                </div>
-                                            </div>
-                                            <!-- /.box-body -->
                                         </div>
-
                                     </div>
-                                    <div class="col-md-7">
-                                        <table class="table table-hover table-no-bordered" data-toggle="table" data-unique-id="client">
-                                            <thead>
-                                            <tr>
-                                                <th data-align="center" data-field="ck"></th>
-                                                <th data-align="center" data-field="client">客户端</th>
-                                                <th data-align="center" data-field="address">网址</th>
-                                                <th data-align="center" data-field="username">用户名</th>
-                                                <th data-align="center" data-field="password">密码</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td><input id="nfsClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
-                                                <td>NFS</td>
-                                                <td>--</td>
-                                                <td>--</td>
-                                                <td>--</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input id="sambaCient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
-                                                <td>Samba</td>
-                                                <td>localhost/share</td>
-                                                <td>username</td>
-                                                <td>passwoird</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input id="iscsiClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
-                                                <td>iSCSI</td>
-                                                <td>localhost/share</td>
-                                                <td>username</td>
-                                                <td>passwoird</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input id="SwiftClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini"></td>
-                                                <td>Swift</td>
-                                                <td>localhost/share</td>
-                                                <td>username</td>
-                                                <td>passwoird</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <!-- /.box-body -->
                                 </div>
 
+                            </div>
+                            <div class="col-md-7">
+                                <table data-toggle="table" data-unique-id="client" id="table_test">
+                                    <thead>
+                                    <tr>
+                                        <th data-align="center" data-field="ck"></th>
+                                        <th data-align="center" data-field="client">客户端</th>
+                                        <th data-align="center" data-field="address">网址</th>
+                                        <th data-align="center" data-field="username">用户名</th>
+                                        <th data-align="center" data-field="password">密码</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">存储设备</h3>
+                                </div>
+                                <div class="box-body">
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-danger"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                    <a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">
+                                        <i class="fa fa-database text-success"></i>块名称
+                                    </a>
+                                </div>
+                                <!-- /.box-body -->
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="box box-primary">
+                                <div class="box-header">
+                                    <i class="ion ion-clipboard"></i>
 
+                                    <h3 class="box-title">快照</h3>
+                                </div>
+                                <div class="box-body">
+                                    <table data-toggle="table" id="snapshot" data-unique-id="snapshotName">
+                                        <thead>
+                                        <tr>
+                                            <th data-align="center" data-field="snapshotName">快照名称</th>
+                                            <th data-align="center" data-field="createTime">创建时间</th>
+                                            <th data-align="center" data-field="snapshotOp">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>快照1</td>
+                                            <td>2016-04-23 20:00:00</td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm" style="margin-right: 10px"><i class="fa fa-reply"></i></button>
+                                                <button type="button" class="btn btn-danger btn-sm" style="margin-left: 10px"><i class="fa fa-times"></i></button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.box-body -->
+                                <div class="box-footer clearfix no-border">
+                                    <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i>添加快照</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -395,11 +442,12 @@
             use : 17,
             read : [2,2,2,2,3,3,3,3,2,2],
             write : [3,3,3,3,3,4,3,3,3,3],
-            NFSInfo : "nfs info",
-            sambaInfo : "samba info",
-            iSCSIInfo : "iSCSI info",
-            SwiftInfo : "Swift info",
-            bricks : [{name: "bricks1", online : true},{name : "bricks2", online : false}],
+            NFSInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            sambaInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            iSCSIInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            SwiftInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            usage : 25,
+            bricks : [{name: "166.111.131.144:/bricks1", online : true},{name : "166.111.131.144:/bricks2", online : false}],
             snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         },
         {
@@ -414,11 +462,12 @@
             use : 7,
             read : [2,2,2,2,3,3,3,3,2,2],
             write : [3,3,3,3,3,4,3,3,3,3],
-            NFSInfo : "nfs info",
-            sambaInfo : "samba info",
-            iSCSIInfo : "iSCSI info",
-            SwiftInfo : "Swift info",
-            bricks : [{name: "bricks1", online : true},{name : "bricks2", online : false}],
+            NFSInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            sambaInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            iSCSIInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            SwiftInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            usage : 50,
+            bricks : [{name: "166.111.131.144:/bricks1", online : true},{name : "166.111.131.144:/bricks2", online : false}],
             snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         },
         {
@@ -433,11 +482,12 @@
             use : 5,
             read : [2,2,2,2,3,3,3,3,2,2],
             write : [3,3,3,3,3,4,3,3,3,3],
-            NFSInfo : "nfs info",
-            sambaInfo : "samba info",
-            iSCSIInfo : "iSCSI info",
-            SwiftInfo : "Swift info",
-            bricks : [{name: "bricks1", online : true},{name : "bricks2", online : false}],
+            NFSInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            sambaInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            iSCSIInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            SwiftInfo : {address: "166.111.131.144:/data1", username: "用户名", password: "密码"},
+            usage : 45,
+            bricks : [{name: "166.111.131.144:/bricks1", online : true},{name : "166.111.131.144:/bricks2", online : false}],
             snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         }
     ];
@@ -448,6 +498,7 @@
         globalVolumeData[tmpName] = volumeData[i]["status"];
     }
     jQuery(document).ready(function ($) {
+        $("[rel='tooltip']").tooltip();
         //初始化客户端,后期移到动态创建里面
         var nfsClient = $('#nfsClient');
         nfsClient.change(function() {
@@ -508,14 +559,17 @@
             } else {
                 $('#removeVolume').prop("disabled", false);
             }
+            var rwSpeedIDt = '#' + volumeID + 'rwSpeed';
+            setTimeout(function(){$(rwSpeedIDt).highcharts().reflow();}, 1);
         });
         $('.nav-tabs').click(function (e) {
             var target = $(e.target).attr("href");
             //判断状态确定删除键是否可以使用
             //var volumeID = $('.nav-stacked .active').text();
             var tabPage = target.replace("#","");
-            if (tabPage == "sysM"){
-                setTimeout(function(){$("#rwSpeed").highcharts().reflow();}, 10);
+            if (tabPage == "volumeM"){
+                var currentVolume = $('.nav-stacked .active').text();
+                setTimeout(function(){$("#" + currentVolume + "rwSpeed").highcharts().reflow();}, 1);
             }
         });
         $("#removeConfirm").click(function(){
@@ -780,12 +834,225 @@
                 $("#noVolume").css('display','none');
             }
             volumeTabs.append(volumeTabFormat(volumeData[i]["volumeName"], i));
-            volumeContent.append(volumeContentFormat(volumeData[i]["volumeName"], i));
+            volumeContent.append(volumeContentFormat(volumeData[i], i));
+            //初始化饼图
+            var volumeUsageID = '#' + volumeData[i]["volumeName"] + 'Usage';
+            var usage = volumeData[i]["usage"];
+            var usageData = [
+                {label: "已使用", data: usage, color: "#0073b7"},
+                {label: "未使用", data: 100 - usage, color: "#00c0ef"}
+            ];
+            $.plot(volumeUsageID, usageData, {
+                series: {
+                    pie: {
+                        show: true,
+                        radius: 1,
+                        innerRadius: 0.4,
+                        label: {
+                            show: true,
+                            radius: 2 / 3,
+                            formatter: labelFormatter,
+                            threshold: 0.1
+                        }
+
+                    }
+                },
+                legend: {
+                    show: false
+                }
+            });
+            //初始化曲线图
+            var rwSpeedID = '#' + volumeData[i]["volumeName"] + 'rwSpeed';
+            $(rwSpeedID).highcharts({
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                    type: 'line',
+                    animation: false, // don't animate in old IE
+                    events: {
+                        load: function (event) {
+                            var series = this.series[0];
+                            var series1 = this.series[1];
+                            setInterval(function () {
+                                var x = (new Date()).getTime(), // current time
+                                        y = Math.random();//y get from background
+                                series.addPoint([x, y], true, true);
+                                series1.addPoint([x, Math.random()], true, true);
+                            }, 1000);
+                        }
+                    }
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    minPadding: 0,
+                    maxPadding: 0
+                },
+                yAxis: {
+                    title: {
+                        text: 'MB/s'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 2);
+                    },
+                    crosshairs: true
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            allowOverlap: true
+                        }
+                    }
+                },
+                title : {
+                    text : ""
+                },
+                legend: {
+                    enabled: true
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [{
+                    name: '读',
+                    data: (function () {
+                        var len = volumeData[i]["read"].length;
+                        // generate an array of random data
+                        var data = [],
+                                time = (new Date()).getTime(),
+                                j = -len;
+
+                        for (; j < 0; j += 1) {
+                            data.push({
+                                x: time + j * 1000,
+                                y: volumeData[i]["read"][len + j]
+                            });
+                        }
+                        //console.log(volumeData[i]["write"].length);
+                        return data;
+                    }())
+                }, {
+                    name: '写',
+                    data: (function () {
+                        var len = volumeData[i]["write"].length;
+                        // generate an array of random data
+                        var data = [],
+                                time = (new Date()).getTime(),
+                                j = -len;
+
+                        for (; j < 0; j += 1) {
+                            data.push({
+                                x: time + j * 1000,
+                                y: volumeData[i]["write"][len + j]
+                            });
+                        }
+                        //console.log(volumeData[i]["write"].length);
+                        return data;
+                    }()),
+                    color : '#6FDB4B'
+                }]
+            });
+            //初始化clinetTable
+            var clientTableID = '#' + volumeData[i]["volumeName"] + "ClientTable";
+            console.log(clientTableID);
+            var $clientTable = $(clientTableID);
+            var clientData = [];
+            var tmpClientData = {};
+            //NFS
+            if (volumeData[i]["NFS"]){
+                var nfsData = volumeData[i]["NFSInfo"];
+                //nfs开启
+                tmpClientData["ck"] = '<input id="' + volumeData[i]["volumeName"] +'nfsClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini">';
+                tmpClientData["client"] = "NFS";
+                tmpClientData["address"] = nfsData["address"];
+                tmpClientData["username"] = nfsData["username"];
+                tmpClientData["password"] = nfsData["password"];
+            } else {
+                tmpClientData["ck"] = '<input id="' + volumeData[i]["volumeName"] +'nfsClient" type="checkbox" unchecked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini">';
+                tmpClientData["client"] = "NFS";
+                tmpClientData["address"] = "--";
+                tmpClientData["username"] = "--";
+                tmpClientData["password"] = "--";
+            }
+            clientData.push(tmpClientData);
+            tmpClientData = {};
+            //Samba
+            if (volumeData[i]["Samba"]){
+                var sambaData = volumeData[i]["sambaInfo"];
+                //nfs开启
+                tmpClientData["ck"] = '<input id="' + volumeData[i]["volumeName"] +'sambaCient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini">';
+                tmpClientData["client"] = "Samba";
+                tmpClientData["address"] = sambaData["address"];
+                tmpClientData["username"] = sambaData["username"];
+                tmpClientData["password"] = sambaData["password"];
+            } else {
+                tmpClientData["ck"] = '<input id="' + volumeData[i]["volumeName"] +'sambaCient" type="checkbox" unchecked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini">';
+                tmpClientData["client"] = "Samba";
+                tmpClientData["address"] = "--";
+                tmpClientData["username"] = "--";
+                tmpClientData["password"] = "--";
+            }
+            clientData.push(tmpClientData);
+            tmpClientData = {};
+            //iSCSI
+            if (volumeData[i]["iSCSI"]){
+                var iscsiData = volumeData[i]["iSCSIInfo"];
+                //nfs开启
+                tmpClientData["ck"] = '<input id="' + volumeData[i]["volumeName"] +'iscsiClient" type="checkbox" checked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini">';
+                tmpClientData["client"] = "iSCSI";
+                tmpClientData["address"] = iscsiData["address"];
+                tmpClientData["username"] = iscsiData["username"];
+                tmpClientData["password"] = iscsiData["password"];
+            } else {
+                tmpClientData["ck"] = '<input id="' + volumeData[i]["volumeName"] +'iscsiClient" type="checkbox" unchecked data-toggle="toggle" data-on="On" data-off="Off" data-onstyle="success" data-offstyle="danger" data-size="mini">';
+                tmpClientData["client"] = "iSCSI";
+                tmpClientData["address"] = "--";
+                tmpClientData["username"] = "--";
+                tmpClientData["password"] = "--";
+            }
+            clientData.push(tmpClientData);
+            tmpClientData = {};
+            //swift
+            if (volumeData[i]["Swift"]){
+                var swiftData = volumeData[i]["SwiftInfo"];
+                //nfs开启
+                tmpClientData["ck"] = "<input id=\" " + volumeData[i]["volumeName"] +"SwiftClient\" type=\"checkbox\" checked data-toggle=\"toggle\" data-on=\"On\" data-off=\"Off\" data-onstyle=\"success\" data-offstyle=\"danger\" data-size=\"mini\">";
+                tmpClientData["client"] = "Swift";
+                tmpClientData["address"] = swiftData["address"];
+                tmpClientData["username"] = swiftData["username"];
+                tmpClientData["password"] = swiftData["password"];
+            } else {
+                tmpClientData["ck"] = "<input id=\" " + volumeData[i]["volumeName"] +"SwiftClient\" type=\"checkbox\" unchecked data-toggle=\"toggle\" data-on=\"On\" data-off=\"Off\" data-onstyle=\"success\" data-offstyle=\"danger\" data-size=\"mini\">";
+                tmpClientData["client"] = "Swift";
+                tmpClientData["address"] = "--";
+                tmpClientData["username"] = "--";
+                tmpClientData["password"] = "--";
+            }
+            clientData.push(tmpClientData);
+            //console.log(clientData);
+            //$clientTable.bootstrapTable('append', clientData);
+            if (i == 0){
+                console.log("don1")
+                $('#table_test').bootstrapTable('append', clientData);
+            }
+            console.log("done2");
+
             if (i == 0 && volumeData[i]["status"] == "stop"){
                 removeButton.prop("disabled", false);
             }
         }
         /*--------------------------tabcontent-----------------*/
+
         Highcharts.setOptions({
             global: {
                 useUTC: false
@@ -1110,13 +1377,45 @@
         }
 
     }
-    function volumeContentFormat(volumeName, i){
+    function volumeContentFormat(volumeData, i){
         if (i == 0){
-            return '<div id="tabContent' + volumeName + '" class="tab-pane active"> <h1>' + volumeName + '</h1> </div>';
+            return '<div id="tabContent' + volumeData["volumeName"] + '" class="tab-pane active">' + contentFirstRow(volumeData) + contentSecondRow(volumeData) + '</div>';
         } else {
-            return '<div id="tabContent' + volumeName + '" class="tab-pane"> <h1>' + volumeName + '</h1> </div>';
+            return '<div id="tabContent' + volumeData["volumeName"] + '" class="tab-pane">' + contentFirstRow(volumeData) + contentSecondRow(volumeData) + '</div>';
         }
     }
+
+    function contentFirstRow(volumeData){
+        var firstRow = '<div class="row"><div class="col-md-3">' + formatUsage(volumeData["volumeName"]) + '</div>' + '<div class="col-md-9">' + formatRWSpeed(volumeData["volumeName"]) + '</div></div>';
+        return firstRow;
+    }
+
+    function formatUsage(volumeName){
+        return '<div class="box box-primary"><div class="box-header with-border"><i class="fa fa-bar-chart-o"></i><h3 class="box-title">存储卷容量</h3><div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div></div><div class="box-body"><div id="' + volumeName + 'Usage" style="height: 150px; width:100%"></div></div></div>'
+    }
+
+    function formatRWSpeed(volumeName){
+        return '<div class="box box-primary"><div class="box-header with-border"><i class="fa fa-bar-chart-o"></i><h3 class="box-title">IO读写速度</h3><div class="box-tools pull-right"><button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button></div></div><div class="box-body" id="rwBox"><div id="' + volumeName + 'rwSpeed" style="height: 150px; width: 100%"></div></div></div>';
+    }
+
+    function contentSecondRow(volumeData){
+        return '<div class="row"><div class="col-md-5">' + formatOperation(volumeData["volumeName"], volumeData["status"]) + '</div><div class="col-md-7">' + formatClientTable(volumeData["volumeName"]) + '</div></div>';
+    }
+
+    function formatOperation(volumeName, status){
+        if (status == 'running'){
+            return '<div class="box box-primary"><div class="box-header with-border"><h3 class="box-title">存储卷操作</h3></div><div class="box-body table-responsive no-padding" style="color: black;height: 158px"><div class="row" style="text-align: center;margin-top: 39px;width: 100%"><button class="btn btn-app" id="' + volumeName +'Start" disabled><i class="fa fa-play"></i> 启动</button><button class="btn btn-app" id="' + volumeName + 'Restart"><i class="fa fa-repeat"></i> 重启</button><button class="btn btn-app" id="' + volumeName + 'Stop"><i class="fa fa-pause"></i> 停止</button></div></div></div>';
+
+        } else {
+            return '<div class="box box-primary"><div class="box-header with-border"><h3 class="box-title">存储卷操作</h3></div><div class="box-body table-responsive no-padding" style="color: black;height: 158px"><div class="row" style="text-align: center;margin-top: 39px;width: 100%"><button class="btn btn-app" id="' + volumeName +'Start"><i class="fa fa-play"></i> 启动</button><button class="btn btn-app" id="' + volumeName + 'Restart"><i class="fa fa-repeat"></i> 重启</button><button class="btn btn-app" id="' + volumeName + 'Stop" disabled><i class="fa fa-pause"></i> 停止</button></div></div></div>';
+
+        }
+    }
+
+    function formatClientTable(volumeName){
+        return '<table data-toggle="table" data-unique-id="client" id="' + volumeName + 'ClientTable"><thead><tr><th data-align="center" data-field="ck">fer</th><th data-align="center" data-field="client">客户端</th><th data-align="center" data-field="address">网址</th><th data-align="center" data-field="username">用户名</th><th data-align="center" data-field="password">密码</th></tr></thead><tbody></tbody></table>';
+    }
+
     function appendNewVolume(newVolumeData, i){
         var volumeTabs = $('#volumeTabs');
         var volumeContent = $('#volumeContent');
