@@ -1349,8 +1349,8 @@
             return '<div class="info-box"><span style = "color:darkslategray" class="info-box-icon"><i class="fa fa-fw fa-tv"></i></span>  ' +
                         '<div class="info-box-content" style="color: black"> ' +
                             '<span class="info-box-text">'+ serverId + '</span>' +
-                            '<div class="info-box-number" id="diskinfo'+ serverId +'">' +
-                                '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">立即重启</i></button>'+
+                            '<div class="info-box" id="diskinfo'+ serverId +'">' +
+                               // '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">立即重启</i></button>'+
                             '</div>' +
                         '</div>'
                     '</div>';
@@ -1358,9 +1358,9 @@
     }
     function diskContentFormat(diskId , i, count){
         if (servers[count]["disks"][i]["diskStatus"] == "health") {
-            return '<i style="color:green" class="fa fa-fw fa-database" style="height: 20px; with:20px" ></i>';
+            return '<a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">  <i class="fa fa-database text-success"></i>块名称</a>';
         }else{
-            return '<i style="color:darkred" class="fa fa-fw fa-database" style="height: 20px; with:20px" ></i>';
+            return '<a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">  <i class="fa fa-database text-danger"></i>块名称</a>';
         }
     }
     function labelFormatter(label, series) {
