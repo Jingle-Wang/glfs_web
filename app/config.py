@@ -10,7 +10,7 @@ LOG_LOCATION = '/var/log/gf-management.log'
 DISK_NAME = '/brick/brick'
 
 # data query period (seconds)
-QUERY_PERIOD = 1
+QUERY_PERIOD = 0.5
 
 # monitor list length for cpu usage and memory usage
 MONITOR_LIST_LEN = 20

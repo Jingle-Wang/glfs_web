@@ -491,125 +491,8 @@
             snapshot : [{name : "snapshot1", time : "2016-04-10"},{name : "snapshot2", time : "2016-04-13"}]
         }
     ];
-    var globalVolumeData = {};
-    //初始化全局数据,name->status
-    for (i = 0; i < volumeData.length; i++){
-        var tmpName = volumeData[i]["volumeName"];
-        globalVolumeData[tmpName] = volumeData[i]["status"];
-    }
-    jQuery(document).ready(function ($) {
-        $("[rel='tooltip']").tooltip();
-        //初始化客户端,后期移到动态创建里面
-        var nfsClient = $('#nfsClient');
-        nfsClient.change(function() {
-            if (nfsClient.prop("checked")){
-                alert("checked");
-            } else {
-                alert("unchecked");//-------------------------------------------------to do
-            }
-        });
-        //创建volume--------------------------------
-        $("#volumeCForm").submit(function( event ) {
-            //创建volume
-            event.preventDefault();
-            var volume_name = $('#cVolumeName').val();
-            var volume_capacity = vCapacity;
-            var Redundancy = $('#Redundancy').val();
 
-            $.getJSON($SCRIPT_ROOT + '/volume/create', {
-                volumeName : volume_name,
-                volumeCapacity : volume_capacity,
-                redundancy : Redundancy
-            }, function (data) {
-                var result = data["result"];
-                if (result == "success"){
-                    //判断是否为唯一一个volume
-                    if (Object.keys(globalVolumeData).length == 0){
-                        $("#noVolume").css('display','none');
-                    }
-                    globalVolumeData[volume_name] = "stop";
-                    //添加新的tab和content
-                    var newVolumeData = data["msg"]
-
-                }
-            });
-
-            $("#addVolumeM").modal("hide");
-        });
-        $("#vCapacity").ionRangeSlider({
-            min: 1,
-            max: 20,
-            from: 3,
-            postfix: "TB",
-            onStart : function(data){
-                getCData(data);
-            },
-            onChange : getCData,
-            onFinish : getCData
-
-        });
-        $("#tabs").tab();
-        $('.nav-stacked').click(function (e) {
-            var target = $(e.target).attr("href");
-            //判断状态确定删除键是否可以使用
-            //var volumeID = $('.nav-stacked .active').text();
-            var volumeID = target.replace("#tabContent","");
-            if (globalVolumeData[volumeID] == "running"){
-                $('#removeVolume').prop("disabled", true);
-            } else {
-                $('#removeVolume').prop("disabled", false);
-            }
-            var rwSpeedIDt = '#' + volumeID + 'rwSpeed';
-            setTimeout(function(){$(rwSpeedIDt).highcharts().reflow();}, 1);
-        });
-        $('.nav-tabs').click(function (e) {
-            var target = $(e.target).attr("href");
-            //判断状态确定删除键是否可以使用
-            //var volumeID = $('.nav-stacked .active').text();
-            var tabPage = target.replace("#","");
-            if (tabPage == "volumeM"){
-                var currentVolume = $('.nav-stacked .active').text();
-                setTimeout(function(){$("#" + currentVolume + "rwSpeed").highcharts().reflow();}, 1);
-            }
-        });
-        $("#removeConfirm").click(function(){
-            //alert("当前存储卷!" + $('.nav-stacked .active').text());
-            //删除当前的volume
-            var volumeID = $('.nav-stacked .active').text();
-            $.getJSON($SCRIPT_ROOT + '/volume/remove', {
-                volumeName: volumeID
-            }, function (data) {
-                var result = data["result"];
-                if (result == "success"){
-                    //删除成功
-                    alert("删除成功!");
-                    delete globalVolumeData[volumeID];
-                    //删除系统概要表格列
-                    table.bootstrapTable('removeByUniqueId', volumeID);
-                    //删除nva tab以及对应的content
-                    var volumeTab = $('#tabList' + volumeID);
-                    var volumeContent = $('#tabContent' + volumeID);
-                    volumeTab.remove();
-                    volumeContent.remove();
-                    if (Object.keys(globalVolumeData).length > 0){
-                        //显示第一个为active
-                        //alert("set active");
-                        var firstVolume = Object.keys(globalVolumeData)[0];
-                        $('.nav-stacked a[href="#tabContent' + firstVolume + '"]').tab('show');
-                    } else {
-                        $("#noVolume").css('display','block');
-                        $('#removeVolume').prop("disabled", true);
-                    }
-                } else {
-                    //删除失败
-                    alert("删除失败" + result);
-                }
-            });
-            $("#removeConfirmM").modal("hide");
-        });
-    });
-
-        var serverslist= $('#serversList');
+    var serverslist= $('#serversList');
     var servers = [
         {
             serverId: "tfs00",
@@ -738,6 +621,151 @@
             ]
         }
     ];
+
+    var clusterinfo = getClusterInfo();
+
+    //alert("Data:" + clusterinfo["cluster"][0]["hostname"]);
+
+    var serversinfo = clusterinfo["cluster"];
+
+    if (serversinfo[0]["hostname"] == '127.0.0.1'){
+        serversinfo[0]["hostname"] = "localhost";
+    }
+    for(i=0; i < serversinfo[0]["cpus"].length; i++){
+        serversinfo[0]["cpus"][i]["name"] = 'cpu'+i;
+    }
+
+
+
+    var globalVolumeData = {};
+    //初始化全局数据,name->status
+    for (i = 0; i < volumeData.length; i++){
+        var tmpName = volumeData[i]["volumeName"];
+        globalVolumeData[tmpName] = volumeData[i]["status"];
+    }
+    jQuery(document).ready(function ($) {
+        $("[rel='tooltip']").tooltip();
+        //初始化客户端,后期移到动态创建里面
+        var nfsClient = $('#nfsClient');
+        nfsClient.change(function() {
+            if (nfsClient.prop("checked")){
+                alert("checked");
+            } else {
+                alert("unchecked");//-------------------------------------------------to do
+            }
+        });
+        //创建volume--------------------------------
+        $("#volumeCForm").submit(function( event ) {
+            //创建volume
+            event.preventDefault();
+            var volume_name = $('#cVolumeName').val();
+            var volume_capacity = vCapacity;
+            var Redundancy = $('#Redundancy').val();
+
+            $.getJSON($SCRIPT_ROOT + '/volume/create', {
+                volumeName : volume_name,
+                volumeCapacity : volume_capacity,
+                redundancy : Redundancy
+            }, function (data) {
+                var result = data["result"];
+                if (result == "success"){
+                    //判断是否为唯一一个volume
+                    if (Object.keys(globalVolumeData).length == 0){
+                        $("#noVolume").css('display','none');
+                    }
+                    globalVolumeData[volume_name] = "stop";
+                    //添加新的tab和content
+                    var newVolumeData = data["msg"]
+
+                }
+            });
+
+            $("#addVolumeM").modal("hide");
+        });
+        $("#vCapacity").ionRangeSlider({
+            min: 1,
+            max: 20,
+            from: 3,
+            postfix: "TB",
+            onStart : function(data){
+                getCData(data);
+            },
+            onChange : getCData,
+            onFinish : getCData
+
+        });
+        $("#tabs").tab();
+        $('.nav-stacked').click(function (e) {
+            var target = $(e.target).attr("href");
+            //判断状态确定删除键是否可以使用
+            //var volumeID = $('.nav-stacked .active').text();
+            var volumeID = target.replace("#tabContent","");
+            if (globalVolumeData[volumeID] == "running"){
+                $('#removeVolume').prop("disabled", true);
+            } else {
+                $('#removeVolume').prop("disabled", false);
+            }
+            var rwSpeedIDt = '#' + volumeID + 'rwSpeed';
+            setTimeout(function(){$(rwSpeedIDt).highcharts().reflow();}, 1);
+        });
+        $('.nav-tabs').click(function (e) {
+            var target = $(e.target).attr("href");
+            //判断状态确定删除键是否可以使用
+            //var volumeID = $('.nav-stacked .active').text();
+            var tabPage = target.replace("#","");
+            if (tabPage == "volumeM"){
+                var currentVolume = $('.nav-stacked .active').text();
+                setTimeout(function(){$("#" + currentVolume + "rwSpeed").highcharts().reflow();}, 1);
+            }
+            if (tabPage == "monitorM"){
+
+                setTimeout(function (){
+                    for (var i = 0; i < serversinfo.length; i++){
+                        $("#CPU"+serversinfo[i]["hostname"]).highcharts().reflow();
+                    }
+
+                },1);
+
+            }
+        });
+        $("#removeConfirm").click(function(){
+            //alert("当前存储卷!" + $('.nav-stacked .active').text());
+            //删除当前的volume
+            var volumeID = $('.nav-stacked .active').text();
+            $.getJSON($SCRIPT_ROOT + '/volume/remove', {
+                volumeName: volumeID
+            }, function (data) {
+                var result = data["result"];
+                if (result == "success"){
+                    //删除成功
+                    alert("删除成功!");
+                    delete globalVolumeData[volumeID];
+                    //删除系统概要表格列
+                    table.bootstrapTable('removeByUniqueId', volumeID);
+                    //删除nva tab以及对应的content
+                    var volumeTab = $('#tabList' + volumeID);
+                    var volumeContent = $('#tabContent' + volumeID);
+                    volumeTab.remove();
+                    volumeContent.remove();
+                    if (Object.keys(globalVolumeData).length > 0){
+                        //显示第一个为active
+                        //alert("set active");
+                        var firstVolume = Object.keys(globalVolumeData)[0];
+                        $('.nav-stacked a[href="#tabContent' + firstVolume + '"]').tab('show');
+                    } else {
+                        $("#noVolume").css('display','block');
+                        $('#removeVolume').prop("disabled", true);
+                    }
+                } else {
+                    //删除失败
+                    alert("删除失败" + result);
+                }
+            });
+            $("#removeConfirmM").modal("hide");
+        });
+    });
+
+
 
 
     $(function () {
@@ -1169,175 +1197,362 @@
                 disklist.append(diskContentFormat(servers[count]["disks"][i]["diskId"], i, count));
             }
         }
-	
+
+
         /*　System Moniter ---------------------------------*/
-	var SystemMoni = $('#ServersMoni');
-	for (count = 0; count < servers.length; count++){
-		SystemMoni.append(monitorinfoFormat(servers[count]["serverId"], count));
-		Highcharts.setOptions({
-		    global: {
-		        useUTC: false
-		    }
-		});
 
-		$('#CPU' + servers[count]["serverId"]).highcharts({
-		    credits: {
-		        enabled: false
-		    },
-		    chart: {
-		        type: 'line',
-		        animation: false, // don't animate in old IE
-		        events: {
-		            load: function (event) {
-		                var series = this.series[0];
-		                var series1 = this.series[1];
-		                setInterval(function () {
-		                    var x = (new Date()).getTime(), // current time
-		                            y = Math.random();//y get from background
-		                    series.addPoint([x, y], true, true);
-		                    series1.addPoint([x, Math.random()], true, true);
-		                }, 1000);
-		            }
 
-		        }
-		    },
-		    xAxis: {
-		        type: 'datetime',
-		        tickPixelInterval: 150,
-		        minPadding: 0,
-		        maxPadding: 0
-		    },
-		    yAxis: {
-		        title: {
-		            text: 'MB/s'
-		        },
-		        plotLines: [{
-		            value: 0,
-		            width: 1,
-		            color: '#808080'
-		        }]
-		    },
-		    tooltip: {
-		        formatter: function () {
-		            return '<b>' + this.series.name + '</b><br/>' +
-		                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
-		                    Highcharts.numberFormat(this.y, 2);
-		        },
-		        crosshairs: true
-		    },
-		    plotOptions: {
-		        series: {
-		            dataLabels: {
-		                allowOverlap: true
-		            }
-		        }
-		    },
-		    title : {
-		        text : ""
-		    },
-		    legend: {
-		        enabled: true
-		    },
-		    exporting: {
-		        enabled: false
-		    },
-		    series: [{
-		        name: '读',
-		        data: (function () {
-		            // generate an array of random data
-		            var data = [],
-		                    time = (new Date()).getTime(),
-		                    i;
 
-		            for (i = -19; i <= 0; i += 1) {
-		                data.push({
-		                    x: time + i * 1000,
-		                    y: Math.random()
-		                });
-		            }
-		            return data;
-		        }())
-		    }, {
-		        name: '写',
-		        data: (function () {
-		            // generate an array of random data
-		            var data = [],
-		                    time = (new Date()).getTime(),
-		                    i;
 
-		            for (i = -19; i <= 0; i += 1) {
-		                data.push({
-		                    x: time + i * 1000,
-		                    y: Math.random()
-		                });
-		            }
-		            return data;
-		        }()),
-		        color : '#6FDB4B'
-		    }]
-		});		
 
-	}
+        var SystemMoni = $('#ServersMoni');
+
+        for (count = 0; count < serversinfo.length; count++){
+            SystemMoni.append(monitorinfoFormat(serversinfo[count]["hostname"], count));
+           // SystemMoni.append(monitorinfoFormat("localhost", count));
+
+
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false
+                }
+            });
+            var CPUid = '#CPU' + serversinfo[count]["hostname"];
+            //var CPUid = '#CPU' + 'localhost';
+            //var test = createSeries(0);
+            //alert(test.length);
+            //alert(test[0]["name"]);
+           // alert(CPUid);
+           // alert(getSeries(count) +"hello");
+            $(CPUid).highcharts( {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                   // renderTo: 'container',
+                    type: 'line',
+                    animation: false, // don't animate in old IE
+                    events: {
+                        load: function (event) {
+
+                            var series = this.series;
+                         /*   var series1 = this.series[1];
+                            var series2 = this.series[2];
+                            var series3 = this.series[3];
+                            var series4 = this.series[4];
+                            var series5 = this.series[5];
+                            var series6 = this.series[6];
+                            var series7 = this.series[7];
+                        */
+                            var cnt = count;
+                            setInterval(function ( ) {
+                                var x = (new Date()).getTime();
+                                 // current time
+                            /*    for(var i = 0; i < serversinfo[count]["cpus"].length; i++)
+                                {
+                                    var x = (new Date()).getTime();
+                                    var y = Math.random();//y get from background
+                                    series[i].addPoint([x, y],true,true);
+                                }*/
+                               var url = $SCRIPT_ROOT + '/monitor/info';
+                                $.getJSON(url, null, function (data) {
+                                    for (var i = 0; i < series.length; i++)
+                                    {
+                                        series[i].addPoint([x, parseInt(data["cluster"][cnt]["cpus"][i]["usage"][19])], true, true);
+                                    }
+                                });
+
+                               // series[0].addPoint([x, Math.random()], true, true);
+                               /* series[1].addPoint([x, Math.random()], true, true);
+                                series[2].addPoint([x, Math.random()], true, true);
+                                series[3].addPoint([x, Math.random()], true, true);
+                                series[4].addPoint([x, Math.random()], true, true);
+                                series[5].addPoint([x, Math.random()], true, true);
+                                series[6].addPoint([x, Math.random()], true, true);
+                                series[7].addPoint([x, Math.random()], true, true);
+                                //series[].addPoint([x, Math.random()], true, true);*/
+
+                          /*      series.addPoint([x, y], true, true);
+                                series1.addPoint([x, Math.random()], true, true);
+                                series2.addPoint([x, Math.random()], true, true);
+                                series3.addPoint([x, Math.random()], true, true);
+                                series4.addPoint([x, Math.random()], true, true);
+                                series5.addPoint([x, Math.random()], true, true);
+                                series6.addPoint([x, Math.random()], true, true);
+                                series7.addPoint([x, Math.random()], true, true);
+                                */
+                            }, 1000);
+                        }
+
+                    }
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    minPadding: 0,
+                    maxPadding: 0
+                },
+                yAxis: {
+                    title: {
+                        text: 'CPU已使用率(%)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 2);
+                    },
+                    crosshairs: true
+                },
+                plotOptions: {
+                    series: {
+                        dataLabels: {
+                            allowOverlap: true
+                        }
+                    }
+                },
+                title : {
+                    text : ""
+                },
+                legend: {
+                    enabled: true
+                },
+                exporting: {
+                    enabled: false
+                },
+                series : createSeries(count)
+                        /*
+                        [{
+                            name: 'Jiang',
+                            data: (function () {
+                                var data = [], time = (new Date()).getTime(), i;
+                                for (i = -19; i <= 0; i++) {
+                                    data.push(
+                                            {
+                                                x: time + i * 1000,
+                                                y: 2
+                                            }
+                                    )
+                                }
+                                return data;
+                            }())
+                        },
+                            {
+                            name: 'long',
+                            data: (function () {
+                                var data = [], time = (new Date()).getTime(), i;
+                                for (i = -19; i <= 0; i++) {
+                                    data.push(
+                                            {
+                                                x: time + i * 1000,
+                                                y: 2
+                                            }
+                                    )
+                                }
+                                return data;
+                            }())
+                        }
+
+                        ]*/
+                        /*
+                       [{
+                        name: '读',
+                        data: (function () {
+                            // generate an array of random data
+                            var data = [],
+                                    time = (new Date()).getTime(),
+                                    i;
+                            for (i = -19; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1000,
+                                    y: Math.random()
+                                });
+                            }
+                            return data;
+                        }())
+                    }, {
+                        name: '写',
+                        data: (function () {
+                            // generate an array of random data
+                            var data = [],
+                                    time = (new Date()).getTime(),
+                                    i;
+                            for (i = -19; i <= 0; i += 1) {
+                                data.push({
+                                    x: time + i * 1000,
+                                    y: Math.random()
+                                });
+                            }
+                            return data;
+                        }()),
+                        color : '#6FDB4B'
+                    }]
+                    */
+            });
+
+
+
+
+        }
 		
 		
 
     });
-    function monitorinfoFormat(serverId, i) {
-	return '<div class="col-md-12">'+
-			'<div class= "box-header with-border">' + 
-				'<h3 class ="box-title" id="serverid">机器名称：' + serverId + '</h3>' +
-			'</div>' +
-			'<div class= "col-md-6">' +	
-				'<div class="box box-primary">' +
-		    			'<div class="box-header with-border">' +
-		             			'<i class="fa fa-bar-chart-o"></i>' +
-						'<h3 class="box-title">CPU使用率</h3>' +
-		                	'</div>' +
-		                        '<div class="box-body" id="rwCPU'+ serverId+ '">' +
-		                                '<div id="CPU'+ serverId+ '" style="height: 180px; width: 550px"></div>' +
-		                        '</div>' +
-		                '</div>' +
-			'</div>'+
+    function  getSeries(serverId) {
+        return serversinfo[serverId]["cpus"].length;
+    }
 
-			'<div class= "col-md-6">' +	
-				'<div class="box box-primary">' +
-		    			'<div class="box-header with-border">' +
-		             			'<i class="fa fa-bar-chart-o"></i>' +
-						'<h3 class="box-title">内存使用率</h3>' +
-		                	'</div>' +
-		                        '<div class="box-body" id="rwMem'+ serverId+ '">' +
-		                                '<div id="Mem' + serverId + '" style="height: 180px; width: 550px"></div>' +
-		                        '</div>' +
-		                '</div>' +
-			'</div>'+
-			'<div class= "col-md-6">' +	
-				'<div class="box box-primary">' +
-		    			'<div class="box-header with-border">' +
-		             			'<i class="fa fa-bar-chart-o"></i>' +
-						'<h3 class="box-title">网络I/O</h3>' +
-		                	'</div>' +
-		                        '<div class="box-body" id="rwNet'+ serverId+ '">' +
-		                                '<div id="Net' + serverId + '" style="height: 180px; width:550px"></div>' +
-		                        '</div>' +
-		                '</div>' +
-			'</div>'+
-			'<div class= "col-md-6">' +	
-				'<div class="box box-primary">' +
-		    			'<div class="box-header with-border">' +
-		             			'<i class="fa fa-bar-chart-o"></i>' +
-						'<h3 class="box-title">磁盘I/O</h3>' +
-		                	'</div>' +
-		                        '<div class="box-body" id="rwNet'+ serverId+ '">' +
-		                                '<div id="Iodisk' + serverId + '" style="height: 180px; width: 550px"></div>' +
-		                        '</div>' +
-		                '</div>' +
-			'</div>'+
-		
-		'</div>';
+    function getData(serverId, cpuId){
+
+
+    }
+    function createSeries (serverId) {
+     /*  var series =  [{
+                            name: 'Jiang',
+                            data: (function () {
+                                var data = [], time = (new Date()).getTime(), i;
+                                for (i = -19; i <= 0; i++) {
+                                    data.push(
+                                            {
+                                                x: time + i * 1000,
+                                                y: 2
+                                            }
+                                    )
+                                }
+                                return data;
+                            }())
+                        },
+                            {
+                            name: 'long',
+                            data: (function () {
+                                var data = [], time = (new Date()).getTime(), i;
+                                for (i = -19; i <= 0; i++) {
+                                    data.push(
+                                            {
+                                                x: time + i * 1000,
+                                                y: 2
+                                            }
+                                    )
+                                }
+                                return data;
+                            }())
+                        }
+
+                        ];
+        return series;
+*/
+        var series = new Array();
+        var time = (new Date()).getTime();
+        for (var cpuId = 0; cpuId < serversinfo[serverId]["cpus"].length; cpuId++){
+
+            var data = function () {
+                var data = [],  i;
+                for (i = -19; i <= 0; i++){
+                    data.push({
+                        "x": time + i * 1000,
+                        "y": parseInt(serversinfo[serverId]["cpus"][cpuId]["usage"][i + 19])
+                    });
+                }
+                return data;
+            }();
+            series.push({
+                "name": serversinfo[serverId]["cpus"][cpuId]["name"],
+                "data": data
+
+            });
+          //  alert(cpuId);
+
+        }
+       // alert(serversinfo[serverId]["cpus"][7]["name"] + "hello");
+       // alert(series);
+        //alert(series.length);
+        return series;
+
+
+    }
+
+    function getClusterInfo() {
+
+        var url = $SCRIPT_ROOT + '/monitor/info';
+
+        var clusterinfomat={
+            cluster: [{
+                hostname:"tfs00"
+            }
+            ]
+        };
+        $.ajaxSetup({async:false});
+        $.getJSON(url, null, function (data) {
+
+           // alert(data["cluster"][0]["hostname"]);
+            clusterinfomat = data;
+        });
+        return clusterinfomat;
+    }
+
+
+    function monitorinfoFormat(serverId, i) {
+        return '<div class="col-md-12">'+
+                '<div class= "box-header with-border">' +
+                    '<h3 class ="box-title" id="serverid">机器名称：' + serverId + '</h3>' +
+                '</div>' +
+                '<div class= "col-md-6">' +
+                    '<div class="box box-primary">' +
+                            '<div class="box-header with-border">' +
+                                    '<i class="fa fa-bar-chart-o"></i>' +
+                            '<h3 class="box-title">CPU使用率</h3>' +
+                                '</div>' +
+                                    '<div class="box-body" id="rwCPU'+ serverId+ '">' +
+                                            '<div id="CPU'+ serverId+ '" style="height: 180px; width: 100%"></div>' +
+                                    '</div>' +
+                            '</div>' +
+                '</div>'+
+
+                '<div class= "col-md-6">' +
+                    '<div class="box box-primary">' +
+                            '<div class="box-header with-border">' +
+                                    '<i class="fa fa-bar-chart-o"></i>' +
+                            '<h3 class="box-title">内存使用率</h3>' +
+                                '</div>' +
+                                    '<div class="box-body" id="rwMem'+ serverId+ '">' +
+                                            '<div id="Mem' + serverId + '" style="height: 180px; width: 100%"></div>' +
+                                    '</div>' +
+                            '</div>' +
+                '</div>'+
+                '<div class= "col-md-6">' +
+                    '<div class="box box-primary">' +
+                            '<div class="box-header with-border">' +
+                                    '<i class="fa fa-bar-chart-o"></i>' +
+                            '<h3 class="box-title">网络I/O</h3>' +
+                                '</div>' +
+                                    '<div class="box-body" id="rwNet'+ serverId+ '">' +
+                                            '<div id="Net' + serverId + '" style="height: 180px; width:100%"></div>' +
+                                    '</div>' +
+                            '</div>' +
+                '</div>'+
+                '<div class= "col-md-6">' +
+                    '<div class="box box-primary">' +
+                            '<div class="box-header with-border">' +
+                                    '<i class="fa fa-bar-chart-o"></i>' +
+                            '<h3 class="box-title">磁盘I/O</h3>' +
+                                '</div>' +
+                                    '<div class="box-body" id="rwNet'+ serverId+ '">' +
+                                            '<div id="Iodisk' + serverId + '" style="height: 180px; width: 100%"></div>' +
+                                    '</div>' +
+                            '</div>' +
+                '</div>'+
+
+            '</div>';
     }
     function serversListFormat(serverId, i) {
         if (servers[i]["serverStatus"] == "running"){
-            return '<div class="info-box"><span style = "color:green" class="info-box-icon "><i class="fa fa-fw fa-tv"></i></span>' +
+            return '<div class="info-box"><span style = "color:green" class="info-box-icon "><i class="fa fa-fw fa-tv" title="服务器名称:'+ serverId+'"></i></span>' +
                         '<div class="info-box-content" style="color: black"> ' +
                             '<span class="info-box-text">'+ serverId + '</span> ' +
                             '<div class="info-box-number" id="diskinfo'+ serverId + '">' +
@@ -1346,11 +1561,11 @@
                         '</div>'
                     '</div>';
         }else{
-            return '<div class="info-box"><span style = "color:darkslategray" class="info-box-icon"><i class="fa fa-fw fa-tv"></i></span>  ' +
+            return '<div class="info-box"><span style = "color:darkslategray" class="info-box-icon"><i class="fa fa-fw fa-tv" title="服务器名称:'+ serverId+'"></i></span>  ' +
                         '<div class="info-box-content" style="color: black"> ' +
                             '<span class="info-box-text">'+ serverId + '</span>' +
-                            '<div class="info-box" id="diskinfo'+ serverId +'">' +
-                               // '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">立即重启</i></button>'+
+                            '<div class="info-box-number" id="diskinfo'+ serverId +'">' +
+                               '<button type="button" class="btn btn-primary btn-sm col-md-offset-10 pull-right" id="serverRestart"><i class="fa fa-refresh">立即重启</i></button>'+
                             '</div>' +
                         '</div>'
                     '</div>';
@@ -1358,9 +1573,11 @@
     }
     function diskContentFormat(diskId , i, count){
         if (servers[count]["disks"][i]["diskStatus"] == "health") {
-            return '<a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">  <i class="fa fa-database text-success"></i>块名称</a>';
+           // return '<a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">  <i class="fa fa-database text-success"></i>块名称</a>';
+            return ' <i class="fa fa-database text-success" title="磁盘编号:'+ diskId + '"></i>'
         }else{
-            return '<a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">  <i class="fa fa-database text-danger"></i>块名称</a>';
+          //  return '<a class="btn btn-app" rel="tooltip" title="存储设备名称: 166.111.131.144:/few/fe<br>状态: 在线" data-html="true">  <i class="fa fa-database text-danger"></i>块名称</a>';
+            return ' <i class="fa fa-database text-danger" title="磁盘编号:'+ diskId + '"></i>'
         }
     }
     function labelFormatter(label, series) {
