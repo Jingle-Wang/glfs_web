@@ -13,10 +13,15 @@ VOLUME_NAMES = 'volume:names'
 CLUSTER_DISKS = 'cluster:disks'
 CLUSTER_LIST = 'cluster:list'
 CLUSTER_RESOURCE = 'cluster:resource'
+
+# list object
+
 # memory_usage:192.168.1.150
 MEMORY_USAGE_PREFIX = 'memory_usage:'
 # cpu_usage:192.168.1.150:1 cpu_usage:192.168.1.150:2 etc
 CPU_USAGE_PREFIX = 'cpu_usage:'
+READ_SPEED_PREFIX = 'read_speed:'
+WRITE_SPEED_PREFIX = 'write_speed:'
 
 
 # This class is wrapper for a redis instance
@@ -58,6 +63,10 @@ class Redis:
     @staticmethod
     def sget(name):
         return Redis.r.smembers(name)
+
+    @staticmethod
+    def srem(name, key):
+        return Redis.r.srem(name, key)
 
     # append to list
     @staticmethod

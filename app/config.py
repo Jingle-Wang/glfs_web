@@ -1,16 +1,17 @@
 # localhost ip
-# LOCAL_HOST = '192.168.1.150'
 LOCAL_HOST = '127.0.0.1'
 
 # runtime log file location
 LOG_LOCATION = '/var/log/gf-management.log'
 
 # default disk mount prefix
-# /brick/brick1 /brick/brick2 etc
-DISK_NAME = '/brick/brick'
+DISK_PREFIX = '/bricks/brick'
 
 # data query period (seconds)
-QUERY_PERIOD = 0.5
+QUERY_PERIOD = 5
 
-# monitor list length for cpu usage and memory usage
+# cpu & memory usage monitor list length
 MONITOR_LIST_LEN = 20
+
+# volume read/write performance list length
+PERF_LIST_LEN = 20
