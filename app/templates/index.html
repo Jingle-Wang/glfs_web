@@ -726,6 +726,14 @@
 
                 },1);
 
+                setTimeout(function (){
+                    for (var i = 0; i < serversinfo.length; i++){
+                        $("#Mem"+serversinfo[i]["hostname"]).highcharts().reflow();
+                    }
+
+                },1);
+
+
             }
         });
         $("#removeConfirm").click(function(){
@@ -1230,20 +1238,13 @@
                 },
                 chart: {
                    // renderTo: 'container',
-                    type: 'line',
+                    type: 'spline',
                     animation: false, // don't animate in old IE
                     events: {
                         load: function (event) {
 
                             var series = this.series;
-                         /*   var series1 = this.series[1];
-                            var series2 = this.series[2];
-                            var series3 = this.series[3];
-                            var series4 = this.series[4];
-                            var series5 = this.series[5];
-                            var series6 = this.series[6];
-                            var series7 = this.series[7];
-                        */
+
                             var cnt = count;
                             setInterval(function ( ) {
                                 var x = (new Date()).getTime();
@@ -1258,29 +1259,10 @@
                                 $.getJSON(url, null, function (data) {
                                     for (var i = 0; i < series.length; i++)
                                     {
-                                        series[i].addPoint([x, parseInt(data["cluster"][cnt]["cpus"][i]["usage"][19])], true, true);
+                                        series[i].addPoint([x, parseFloat(data["cluster"][cnt]["cpus"][i]["usage"][19])], true, true);
                                     }
                                 });
 
-                               // series[0].addPoint([x, Math.random()], true, true);
-                               /* series[1].addPoint([x, Math.random()], true, true);
-                                series[2].addPoint([x, Math.random()], true, true);
-                                series[3].addPoint([x, Math.random()], true, true);
-                                series[4].addPoint([x, Math.random()], true, true);
-                                series[5].addPoint([x, Math.random()], true, true);
-                                series[6].addPoint([x, Math.random()], true, true);
-                                series[7].addPoint([x, Math.random()], true, true);
-                                //series[].addPoint([x, Math.random()], true, true);*/
-
-                          /*      series.addPoint([x, y], true, true);
-                                series1.addPoint([x, Math.random()], true, true);
-                                series2.addPoint([x, Math.random()], true, true);
-                                series3.addPoint([x, Math.random()], true, true);
-                                series4.addPoint([x, Math.random()], true, true);
-                                series5.addPoint([x, Math.random()], true, true);
-                                series6.addPoint([x, Math.random()], true, true);
-                                series7.addPoint([x, Math.random()], true, true);
-                                */
                             }, 1000);
                         }
 
@@ -1294,7 +1276,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'CPU已使用率(%)'
+                        text: 'CPU使用率(%)'
                     },
                     plotLines: [{
                         value: 0,
@@ -1307,6 +1289,108 @@
                         return '<b>' + this.series.name + '</b><br/>' +
                                 Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
                                 Highcharts.numberFormat(this.y, 2);
+                    },
+                    crosshairs: true
+                },
+                plotOptions: {
+                    /*series: {
+                        dataLabels: {
+                            allowOverlap: true
+                        }
+                    }*/
+                   /* spline: {
+                            lineWidth: 1.5,
+                            fillOpacity: 0.1,
+                             marker: {
+                                enabled: false,
+                                states: {
+                                    hover: {
+                                        enabled: true,
+                                        radius: 2
+                                    }
+                                }
+                            },
+                            shadow: false
+                    }*/
+
+                },
+                title : {
+                    text : ""
+                },
+                legend: {
+                    enabled: true
+                },
+                exporting: {
+                    enabled: false
+                },
+                series : createCPUSeries(count)
+
+            });
+
+
+            var memId = '#Mem' + serversinfo[count]["hostname"];
+            //var CPUid = '#CPU' + 'localhost';
+            //var test = createSeries(0);
+            //alert(test.length);
+            //alert(test[0]["name"]);
+           // alert(CPUid);
+           // alert(getSeries(count) +"hello");
+            $(memId).highcharts( {
+                credits: {
+                    enabled: false
+                },
+                chart: {
+                   // renderTo: 'container',
+                    type: 'spline',
+                    animation: false, // don't animate in old IE
+                    events: {
+                        load: function (event) {
+
+                            var series = this.series;
+
+                            var cnt = count;
+                            setInterval(function ( ) {
+                                var x = (new Date()).getTime();
+                                 // current time
+                            /*    for(var i = 0; i < serversinfo[count]["cpus"].length; i++)
+                                {
+                                    var x = (new Date()).getTime();
+                                    var y = Math.random();//y get from background
+                                    series[i].addPoint([x, y],true,true);
+                                }*/
+                               var url = $SCRIPT_ROOT + '/monitor/info';
+                                $.getJSON(url, null, function (data) {
+
+                                    series[0].addPoint([x, parseFloat(data["cluster"][cnt]["memory"]["usage"][19])], true, true);
+
+                                });
+
+                            }, 1000);
+                        }
+
+                    }
+                },
+                xAxis: {
+                    type: 'datetime',
+                    tickPixelInterval: 150,
+                    minPadding: 0,
+                    maxPadding: 0
+                },
+                yAxis: {
+                    title: {
+                        text: '内存使用率(%, '+ getMemsize(count)+'G)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 2,
+                        color: '#808080'
+                    }]
+                },
+                tooltip: {
+                    formatter: function () {
+                        return '<b>' + this.series.name + '</b><br/>' +
+                                Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                                Highcharts.numberFormat(this.y, 3);
                     },
                     crosshairs: true
                 },
@@ -1326,74 +1410,8 @@
                 exporting: {
                     enabled: false
                 },
-                series : createSeries(count)
-                        /*
-                        [{
-                            name: 'Jiang',
-                            data: (function () {
-                                var data = [], time = (new Date()).getTime(), i;
-                                for (i = -19; i <= 0; i++) {
-                                    data.push(
-                                            {
-                                                x: time + i * 1000,
-                                                y: 2
-                                            }
-                                    )
-                                }
-                                return data;
-                            }())
-                        },
-                            {
-                            name: 'long',
-                            data: (function () {
-                                var data = [], time = (new Date()).getTime(), i;
-                                for (i = -19; i <= 0; i++) {
-                                    data.push(
-                                            {
-                                                x: time + i * 1000,
-                                                y: 2
-                                            }
-                                    )
-                                }
-                                return data;
-                            }())
-                        }
+                series : createMemSeries(count)
 
-                        ]*/
-                        /*
-                       [{
-                        name: '读',
-                        data: (function () {
-                            // generate an array of random data
-                            var data = [],
-                                    time = (new Date()).getTime(),
-                                    i;
-                            for (i = -19; i <= 0; i += 1) {
-                                data.push({
-                                    x: time + i * 1000,
-                                    y: Math.random()
-                                });
-                            }
-                            return data;
-                        }())
-                    }, {
-                        name: '写',
-                        data: (function () {
-                            // generate an array of random data
-                            var data = [],
-                                    time = (new Date()).getTime(),
-                                    i;
-                            for (i = -19; i <= 0; i += 1) {
-                                data.push({
-                                    x: time + i * 1000,
-                                    y: Math.random()
-                                });
-                            }
-                            return data;
-                        }()),
-                        color : '#6FDB4B'
-                    }]
-                    */
             });
 
 
@@ -1404,49 +1422,49 @@
 		
 
     });
+
+    function getMemsize(serverId){
+        return serversinfo[serverId]["memory"]["size"];
+    }
+
+    function createMemSeries(serverId) {
+        var series = new Array();
+        var time = (new Date()).getTime();
+
+
+        var data = function () {
+            var data = [],  i;
+            for (i = -19; i <= 0; i++){
+                data.push({
+                    "x": time + i * 1000,
+                    "y": parseFloat(serversinfo[serverId]["memory"]["usage"][i + 19])
+                });
+            }
+            return data;
+        }();
+        series.push({
+            "name": "memory",
+            "data": data
+
+        });
+          //  alert(cpuId);
+
+
+       // alert(serversinfo[serverId]["cpus"][7]["name"] + "hello");
+       // alert(series);
+        //alert(series.length);
+        return series;
+
+    }
+
+
     function  getSeries(serverId) {
         return serversinfo[serverId]["cpus"].length;
     }
 
-    function getData(serverId, cpuId){
 
+    function createCPUSeries (serverId) {
 
-    }
-    function createSeries (serverId) {
-     /*  var series =  [{
-                            name: 'Jiang',
-                            data: (function () {
-                                var data = [], time = (new Date()).getTime(), i;
-                                for (i = -19; i <= 0; i++) {
-                                    data.push(
-                                            {
-                                                x: time + i * 1000,
-                                                y: 2
-                                            }
-                                    )
-                                }
-                                return data;
-                            }())
-                        },
-                            {
-                            name: 'long',
-                            data: (function () {
-                                var data = [], time = (new Date()).getTime(), i;
-                                for (i = -19; i <= 0; i++) {
-                                    data.push(
-                                            {
-                                                x: time + i * 1000,
-                                                y: 2
-                                            }
-                                    )
-                                }
-                                return data;
-                            }())
-                        }
-
-                        ];
-        return series;
-*/
         var series = new Array();
         var time = (new Date()).getTime();
         for (var cpuId = 0; cpuId < serversinfo[serverId]["cpus"].length; cpuId++){
@@ -1473,8 +1491,6 @@
        // alert(series);
         //alert(series.length);
         return series;
-
-
     }
 
     function getClusterInfo() {
@@ -1548,6 +1564,18 @@
                             '</div>' +
                 '</div>'+
 
+                '<div class="box box-danger col-md-6">' +
+                    '<div class="box-header with-border">' +
+                        '<h3 class="box-title">Donut Chart</h3>' +
+                        '<div class="box-tools pull-right">' +
+                            '<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>' +
+                            '<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="box-body chart-responsive">' +
+                        '<div class="chart" id="sales-chart" style="height: 300px; position: relative;"></div>' +
+                    '</div>' +
+                '</div>'+
             '</div>';
     }
     function serversListFormat(serverId, i) {
